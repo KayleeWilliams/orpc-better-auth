@@ -5,7 +5,7 @@ export const getDashboardUrl = () => {
 
   console.log(process.env);
 
-  if (process.env.NEXT_PUBLIC_ENV === "staging") {
+  if (process.env.NEXT_PUBLIC_ENV === "preview") {
     return `https://${process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL}`;
   }
 
