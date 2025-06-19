@@ -1,5 +1,6 @@
 import { ORPCError, os } from "@orpc/server";
-import { auth } from "../lib/auth";
+import { getDashboardUrl } from "../lib/env";
+import type { auth } from "../lib/auth";
 
 const authMiddleware = os
   .$context<{ headers?: Headers }>()
@@ -14,13 +15,21 @@ const authMiddleware = os
       console.log(key, value);
     });
 
-    const session = await auth.api.getSession({
+    console.log("cookie", context.headers.get("cookie"));
+
+    const response = await fetch(`${getDashboardUrl()}/api/auth/get-session`, {
       headers: context.headers,
     });
 
+    const session = (await response.json()) as Awaited<
+      ReturnType<typeof auth.api.getSession>
+    >;
+
+    console.warn("session", session);
+
     if (!session) {
-      throw new ORPCError("UNAUTHORIZED", {
-        message: "Unauthorized.",
+      throw new ORPCError("CONFLICT", {
+        message: "Conflict.",
       });
     }
 
