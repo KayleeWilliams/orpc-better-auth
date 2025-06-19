@@ -7,5 +7,5 @@ export const getDashboardUrl = () => {
     return `https://${process.env.NEXT_PUBLIC_STAGING_DOMAIN}`;
   }
 
-  return `https://${process.env.NEXT_PUBLIC_PRODUCTION_DOMAIN}`;
+  return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
 };
