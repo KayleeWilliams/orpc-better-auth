@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getQueryClient } from "@/app/lib/query/hydration";
+import { headers } from "next/headers";
 
 export default async function Page({
   params,
@@ -13,9 +14,11 @@ export default async function Page({
   const queryClient = getQueryClient();
   const { planet } = await params;
   const cookieStore = await cookies();
+  const headersList = await headers();
 
   // even though cookies are shown here they're not in the headers
-  console.log(cookieStore.getAll());
+  console.log("SC Cookies", cookieStore.getAll());
+  console.log("SC Headers Cookie", headersList.get("cookie"));
 
   const data = await queryClient.fetchQuery(orpc.activePlanet.queryOptions());
 
