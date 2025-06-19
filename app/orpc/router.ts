@@ -18,7 +18,7 @@ const authMiddleware = os
     console.log("cookie", context.headers.get("cookie"));
 
     const response = await fetch(`${getDashboardUrl()}/api/auth/get-session`, {
-      headers: context.headers,
+      headers: new Headers(context.headers),
     });
 
     const session = (await response.json()) as Awaited<
