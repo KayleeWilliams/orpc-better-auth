@@ -8,6 +8,8 @@ export default async function Page({
   params: Promise<{ planet: string }>;
 }) {
   const cookieStore = await cookies();
+
+  // even though cookies are shown here they're not in the headers
   console.log(cookieStore.getAll());
 
   const data = await orpc.activePlanet.call();

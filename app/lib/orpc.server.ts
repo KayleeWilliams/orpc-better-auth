@@ -14,6 +14,12 @@ globalThis.$client = createRouterClient(router, {
    */
   context: async () => {
     const [headers, cookies] = await Promise.all([getHeaders(), getCookies()]);
+
+		// tried something like that didnt work, ig cookies need to be passed in every time?
+    // if (!headers.has("cookie")) {
+    //   headers.set("cookie", cookies.toString());
+    // }
+
     return {
       headers,
     };
