@@ -11,10 +11,6 @@ const authMiddleware = os
       });
     }
 
-    context.headers.forEach((value, key) => {
-      console.log(key, value);
-    });
-
     console.log("cookie", context.headers.get("cookie"));
     console.log("cookie str", context.headers.get("cookie")?.toString());
 
