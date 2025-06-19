@@ -5,16 +5,10 @@ import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import type { router } from "../orpc/router";
 import { getDashboardUrl } from "./env";
 
-declare global {
-  // eslint-disable-next-line no-var
-  var $client: RouterClient<typeof router> | undefined;
-}
-
 const link = new RPCLink({
   url: `${getDashboardUrl()}/rpc`,
 });
 
-const client: RouterClient<typeof router> =
-  globalThis.$client ?? createORPCClient(link);
+const client: RouterClient<typeof router> = createORPCClient(link);
 
 export const orpc = createTanstackQueryUtils(client);

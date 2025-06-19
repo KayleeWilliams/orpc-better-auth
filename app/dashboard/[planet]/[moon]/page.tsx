@@ -1,4 +1,4 @@
-import { orpc } from "../../../lib/orpc";
+import { orpc } from "../../../lib/orpc.server";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
