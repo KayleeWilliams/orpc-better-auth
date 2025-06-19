@@ -3,9 +3,11 @@ export const getDashboardUrl = () => {
     return "http://localhost:3000";
   }
 
+  console.log(process.env);
+
   if (process.env.NEXT_PUBLIC_ENV === "staging") {
-    return `https://${process.env.NEXT_PUBLIC_STAGING_DOMAIN}`;
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL}`;
   }
 
-  return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  return `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`;
 };
