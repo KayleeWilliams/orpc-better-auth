@@ -22,24 +22,30 @@ const authMiddleware = os
       headers: new Headers(context.headers),
     });
 
-    const session = (await response.json()) as Awaited<
-      ReturnType<typeof auth.api.getSession>
-    >;
+    if (response.ok) {
+      const session = (await response.json()) as Awaited<
+        ReturnType<typeof auth.api.getSession>
+      >;
 
-    console.warn("session", session);
+      console.warn("session", session);
 
-    if (!session) {
-      throw new ORPCError("CONFLICT", {
-        message: "Conflict.",
+      if (!session) {
+        throw new ORPCError("CONFLICT", {
+          message: "Conflict.",
+        });
+      }
+
+      return await next({
+        context: {
+          headers: context.headers,
+          user: session.user,
+          session: session.session,
+        },
       });
     }
 
-    return await next({
-      context: {
-        headers: context.headers,
-        user: session.user,
-        session: session.session,
-      },
+    throw new ORPCError("SERVICE_UNAVAILABLE", {
+      message: "SERVICE_UNAVAILABLE.",
     });
   });
 
